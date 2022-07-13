@@ -33,4 +33,10 @@ public class Post {
     @Column
     @Size(min = 6, max = 20)
     private String password;
+
+    public Post update(String title, String content){
+        this.title = title;
+        this.content = content;
+        return this;
+    }
 }
