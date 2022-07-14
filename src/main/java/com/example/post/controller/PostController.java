@@ -22,7 +22,6 @@ public class PostController {
     public PostIdResponse savePost(@RequestBody @Valid PostRequest request){
         return postService.savePost(request);
     }
-
     @PutMapping
     public PostIdResponse updatePost(@RequestBody @Valid PostRequest request){
         return postService.updatePost(request);
@@ -34,5 +33,9 @@ public class PostController {
     @GetMapping("/post{id}")
     public PostResponse showPost(@PathVariable Long id){
         return postService.showPost(id);
+    }
+    @DeleteMapping
+    public void deletePost(@RequestBody @Valid PostRequest request){
+        postService.deletePost(request);
     }
 }
