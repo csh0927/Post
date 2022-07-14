@@ -79,4 +79,15 @@ public class PostService {
                     .content(post.getContent())
                     .build();
         }
+        //게시글 삭제
+        public void deletePost(PostRequest request){
+            Post post = postRepository.findByUserName(request.getUserName())
+                    .orElseThrow(NotFoundException::new);
+
+            if(passwordEncoder.matches(post.getPassword(), request.getPassword())){
+                throw new ConflictException();
+            }
+
+            postRepository.delete(post);
+        }
 }
