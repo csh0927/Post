@@ -10,7 +10,7 @@ import com.example.post.exception.ConflictException;
 import com.example.post.exception.NotFoundException;
 import lombok.Builder;
 
-import org.springframework.security.core.parameters.P;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ import java.util.List;
 
 @Builder
 @Transactional
+@RequiredArgsConstructor
 @Service
 public class PostService {
     private final PostRepository postRepository;
@@ -78,6 +79,4 @@ public class PostService {
                     .content(post.getContent())
                     .build();
         }
-
-        public
 }
