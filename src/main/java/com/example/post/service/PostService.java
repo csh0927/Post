@@ -34,14 +34,14 @@ public class PostService {
                         Post.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
-                        .username(request.getUsername())
+                        .userName(request.getUserName())
                         .password(passwordEncoder.encode(request.getPassword()))
                         .build()
         ).getId());
     }
     //게시글 수정
     public PostIdResponse updatePost(PostRequest request){
-        Post post = postRepository.findById(request.getId())
+        Post post = postRepository.findByUserName(request.getUserName())
                 .orElseThrow(NotFoundException::new);
 
         if(passwordEncoder.matches(post.getPassword(), request.getPassword())){
@@ -74,7 +74,7 @@ public class PostService {
                     .orElseThrow(NotFoundException :: new);
 
             return PostResponse.builder()
-                    .username(post.getUsername())
+                    .userName(post.getUserName())
                     .title(post.getTitle())
                     .content(post.getContent())
                     .build();

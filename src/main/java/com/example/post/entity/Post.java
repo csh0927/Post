@@ -25,7 +25,7 @@ public class Post {
     private String content;
 
     @Column(length = 20, nullable = false)
-    private String username;
+    private String userName;
 
     @Column
     @Size(min = 6, max = 20)
