@@ -4,6 +4,7 @@ import com.example.post.dto.response.PostIdResponse;
 import com.example.post.dto.response.PostListResponse;
 import com.example.post.dto.request.PostRequest;
 import com.example.post.dto.response.PostResponse;
+import com.example.post.entity.Post;
 import com.example.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,8 @@ public class PostController {
         return postService.savePost(request);
     }
     @PutMapping
-    public PostIdResponse updatePost(@RequestBody @Valid PostRequest request){
-        return postService.updatePost(request);
+    public PostIdResponse updatePost(@RequestBody @Valid Post post, PostRequest request){
+        return postService.updatePost(post, request);
     }
     @PostMapping
     public PostListResponse showPostList(Pageable page){
@@ -35,7 +36,7 @@ public class PostController {
         return postService.showPost(id);
     }
     @DeleteMapping
-    public void deletePost(@RequestBody @Valid PostRequest request){
-        postService.deletePost(request);
+    public void deletePost(@RequestBody @Valid Post post, PostRequest request){
+        postService.deletePost(post, request);
     }
 }
