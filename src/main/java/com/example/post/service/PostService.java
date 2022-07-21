@@ -40,15 +40,15 @@ public class PostService {
         ).getId());
     }
     //게시글 수정
-    public PostIdResponse updatePost(PostRequest request){
-        Post post = postRepository.findByUserName(request.getUserName())
+    public PostIdResponse updatePost(Post post, PostRequest request){
+        Post postEntity = postRepository.findById(post.getId())
                 .orElseThrow(NotFoundException::new);
 
         if(passwordEncoder.matches(post.getPassword(), request.getPassword())){
             throw new ConflictException();
         }
 
-        return new PostIdResponse(post.update(request.getTitle(), request.getContent()).getId());
+        return new PostIdResponse(postEntity.update(request.getTitle(), request.getContent()).getId());
     }
 
     //게시글 리스트 보기(페이징 처리)
@@ -80,14 +80,14 @@ public class PostService {
                     .build();
         }
         //게시글 삭제
-        public void deletePost(PostRequest request){
-            Post post = postRepository.findByUserName(request.getUserName())
+        public void deletePost(Post post, PostRequest request){
+            Post postEntity = postRepository.findById(post.getId())
                     .orElseThrow(NotFoundException::new);
 
-            if(passwordEncoder.matches(post.getPassword(), request.getPassword())){
+            if(passwordEncoder.matches(postEntity.getPassword(), request.getPassword())){
                 throw new ConflictException();
             }
 
-            postRepository.delete(post);
+            postRepository.delete(postEntity);
         }
 }
